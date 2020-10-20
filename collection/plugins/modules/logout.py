@@ -7,7 +7,7 @@ import json
 import psycopg2
 from psycopg2.extras import RealDictCursor
 
-def Logout(sIP, sDBID, sDBPassword):
+def GetToken(sDBID, sDBPassword):
     pgCon = psycopg2.connect(dbname='aiwaf_db', user=sDBID, host='localhost', password=sDBPassword)
     pgCur = pgCon.cursor(cursor_factory=psycopg2.extras.DictCursor)
     pgCur.execute("SELECT * FROM api_tokens ORDER BY id DESC LIMIT 1")
@@ -17,7 +17,11 @@ def Logout(sIP, sDBID, sDBPassword):
     else:
         sToken = ''
     pgCur.close()
-    pgCon.close()
+    pgCon.close()    
+
+    return sToken
+
+def Logout(sIP, sToken):
         
     sURL = 'https://' + sIP + ':223/v1/auth/logout'
     jsHeaders = {"Content-Type": "application/json", "X-ACCESS-TOKEN": sToken}
@@ -37,7 +41,7 @@ if __name__ == '__main__':
 
     module = AnsibleModule(argument_spec=module_args, supports_check_mode=True)
 
-    jsResult = Logout(module.params['ip'], module.params['db_id'], module.params['db_password'])
+    jsResult = Logout(module.params['ip'], GetToken(module.params['db_id'], module.params['db_password']))
 
     if 'error' in jsResult["response"]:
         jsResult["status"] = -1
