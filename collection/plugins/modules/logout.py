@@ -21,9 +21,9 @@ def GetToken(sDBID, sDBPassword):
 
     return sToken
 
-def Logout(sIP, sToken):
+def Logout(sToken):
         
-    sURL = 'https://' + sIP + ':223/v1/auth/logout'
+    sURL = 'https://localhost:223/v1/auth/logout'
     jsHeaders = {"Content-Type": "application/json", "X-ACCESS-TOKEN": sToken}
     response = requests.post(sURL, headers=jsHeaders, data=json.dumps({}), verify=False)
 
@@ -34,14 +34,13 @@ def Logout(sIP, sToken):
 
 if __name__ == '__main__':
     module_args = dict(
-        ip=dict(type='str', required=True),
         db_id=dict(type='str', required=True),
         db_password=dict(type='str', required=True),
     )
 
     module = AnsibleModule(argument_spec=module_args, supports_check_mode=True)
 
-    jsResult = Logout(module.params['ip'], GetToken(module.params['db_id'], module.params['db_password']))
+    jsResult = Logout(GetToken(module.params['db_id'], module.params['db_password']))
 
     if 'error' in jsResult["response"]:
         jsResult["status"] = -1

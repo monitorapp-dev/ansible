@@ -21,8 +21,8 @@ def GetToken(sDBID, sDBPassword):
 
     return sToken
 
-def time(sIP, sToken):
-    sURL = 'https://' + sIP + ':223/v1/config/time'
+def time(sToken):
+    sURL = 'https://localhost:223/v1/config/time'
     jsHeaders = {"Content-Type": "application/json", "X-ACCESS-TOKEN": sToken}
 
     response = requests.put(sURL, data=json.dumps({}), headers=jsHeaders, verify=False)
@@ -34,13 +34,12 @@ def time(sIP, sToken):
 
 if __name__ == '__main__':
     module_args = dict(
-        ip=dict(type='str', required=True),
         db_id=dict(type='str', required=True),
         db_password=dict(type='str', required=True),
     )
     module = AnsibleModule(argument_spec=module_args, supports_check_mode=True)
 
-    jsResult = time(module.params['ip'], GetToken(module.params['db_id'], module.params['db_password']))
+    jsResult = time(GetToken(module.params['db_id'], module.params['db_password']))
 
     if 'error' in jsResult["response"]:
         jsResult["status"] = -1
