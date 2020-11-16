@@ -1,11 +1,13 @@
-#!/bin/env python
-#-*- coding: utf-8 -*-
+# #-*- coding: utf-8 -*-
 
-from ansible.module_utils.basic import *
+from __future__ import (absolute_import, division, print_function)
+from ansible.module_utils.basic import AnsibleModule
 import requests
 import json
 import psycopg2
 from psycopg2.extras import RealDictCursor
+__metaclass__ = type
+
 
 def GetToken(sDBID, sDBPassword):
     pgCon = psycopg2.connect(dbname='aiwaf_db', user=sDBID, host='localhost', password=sDBPassword)
@@ -17,9 +19,10 @@ def GetToken(sDBID, sDBPassword):
     else:
         sToken = ''
     pgCur.close()
-    pgCon.close()    
+    pgCon.close()
 
     return sToken
+
 
 def applyAdmin(sToken):
     sURL = 'https://localhost:223/v1/policy/admin/apply'
@@ -31,6 +34,7 @@ def applyAdmin(sToken):
         return {"response": {}}
     else:
         return {"response": response.json()}
+
 
 if __name__ == '__main__':
     module_args = dict(
@@ -47,4 +51,3 @@ if __name__ == '__main__':
     else:
         jsResult["status"] = 0
         module.exit_json(msg=jsResult)
-   

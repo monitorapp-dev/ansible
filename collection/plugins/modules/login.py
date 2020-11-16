@@ -1,9 +1,11 @@
-#!/bin/env python
-#-*- coding: utf-8 -*-
+# #-*- coding: utf-8 -*-
 
-from ansible.module_utils.basic import *
+from __future__ import (absolute_import, division, print_function)
+from ansible.module_utils.basic import AnsibleModule
 import requests
 import json
+__metaclass__ = type
+
 
 def Login(sID, sPassword):
     sURL = 'https://localhost:223/v1/auth/login'
@@ -11,9 +13,9 @@ def Login(sID, sPassword):
     jsheaders = {"Content-Type": "application/json"}
 
     response = requests.post(sURL, data=json.dumps(jsQuery), headers=jsheaders, verify=False)
-    #response.encoding = 'utf-8'
-    
+
     return {"response": response.json()}
+
 
 if __name__ == '__main__':
     module_args = dict(
@@ -30,4 +32,3 @@ if __name__ == '__main__':
     else:
         jsResult["status"] = 0
         module.exit_json(msg=jsResult)
-   

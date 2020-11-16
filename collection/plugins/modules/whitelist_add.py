@@ -1,11 +1,13 @@
-#!/bin/env python
-#-*- coding: utf-8 -*-
+# #-*- coding: utf-8 -*-
 
-from ansible.module_utils.basic import *
+from __future__ import (absolute_import, division, print_function)
+from ansible.module_utils.basic import AnsibleModule
 import requests
 import json
 import psycopg2
 from psycopg2.extras import RealDictCursor
+__metaclass__ = type
+
 
 def GetToken(sDBID, sDBPassword):
     pgCon = psycopg2.connect(dbname='aiwaf_db', user=sDBID, host='localhost', password=sDBPassword)
@@ -17,23 +19,25 @@ def GetToken(sDBID, sDBPassword):
     else:
         sToken = ''
     pgCur.close()
-    pgCon.close()    
+    pgCon.close()
 
     return sToken
 
+
 def whitelistAdd(sToken, nEnable, sName, arDetectTarget, nVlanID, sExplain):
     sURL = 'https://localhost:223/v1/policy/admin/ip/whitelist'
-    
+
     jsQuery = {"enable": nEnable, "name": sName, "detect_target": arDetectTarget, "vlan_id": nVlanID, "explain": sExplain}
-    
+
     jsHeaders = {"Content-Type": "application/json", "X-ACCESS-TOKEN": sToken}
-    
+
     response = requests.post(sURL, data=json.dumps(jsQuery), headers=jsHeaders, verify=False)
-     
+
     if response.text == '':
         return {"response": {}}
     else:
         return {"response": response.json()}
+
 
 if __name__ == '__main__':
     module_args = dict(
@@ -47,7 +51,8 @@ if __name__ == '__main__':
     )
     module = AnsibleModule(argument_spec=module_args, supports_check_mode=True)
     jsResult = whitelistAdd(GetToken(module.params['db_id'], module.params['db_password']),
-                    module.params['enable'], module.params['name'], module.params['detect_target'], module.params['vlan_id'], module.params['explain'])
+                            module.params['enable'], module.params['name'], module.params['detect_target'],
+                            module.params['vlan_id'], module.params['explain'])
 
     if 'error' in jsResult["response"]:
         jsResult["status"] = -1
@@ -55,4 +60,3 @@ if __name__ == '__main__':
     else:
         jsResult["status"] = 0
         module.exit_json(msg=jsResult)
-   
