@@ -6,6 +6,7 @@ Collection 개발 방법에 대한 내용은 https://docs.ansible.com/ansible/2.
 
 
 # Setup
+## HOST
 
 1. 프로젝트 클론
 ```sh
@@ -29,18 +30,62 @@ $ sudo apt-get install ansible-test
 4. Python 모듈 설치
 ```sh
 $ sudo apt-get install python python3 python-pip python3-pip
-$ sudo pip3 install 
 $ sudo pip3 install pyyaml pycodestyle pylint voluptuous psycopg2 jinja2
 ```
 
-# ansible-test
+5. SSH 연결 설정 (패스워드 없이 로그인)
+```sh
+$ sudo ssh-keygen -t rsa
+$ sudo scp ~/.ssh/id_rsa.pub {USER}@{HOST}:~/.ssh/authorized_keys
+$ sudo ssh-copy-id -i ~/.ssh/id_rsa.pub {USER}@{HOST}
+```
+
+6. hosts에 Client IP 추가 (nano, vi...)
+```sh
+$ sudo nano /etc/ansible/hosts
+```
+> 맨 하단에 IP 추가하면 됩니다.
+
+## Client
+
+1. Python 모듈 설치
+```sh
+$ sudo apt-get install python python3 python-pip python3-pip
+$ sudo pip3 install 
+$ sudo pip3 install psycopg2 requests
+```
+
+2. API Open (WEB UI)
+
+
+# ansible-test (HOST)
 
 1. 해당 폴더로 이동
 ```sh
 $ cd ansible_collections/monitorapp/monitorapp_waf
 ```
+
 2. 테스트 실행
 ```sh
 $ sudo ansible-test sanity
 ```
+
+# ansible-playbook (HOST)
+
+1. 모듈 Path 추가 (nano, vi...)
+```sh
+$ sudo nano /etc/ansible/ansible.cfg
+```
+> [defaults]의 library 값에 module path 추가하면 됩니다
+
+2. data/vars.json 내 계정 정보 추가 (nano, vi...)
+```sh
+$ sudo nano ansible_collections/monitorapp/monitorapp_waf/data/vars.json
+```
+> db.id, db.password => postgres db 계정정보
+> 
+> web.id, web.password => 관리자 WEB(222) 계정정보
+>
+> 각 모듈들에 대한 파라미터값은 모두 var.json에 설정 되어있습니다. 예시값으로 설정 되어 있으니 필요에 따라 수정하여 사용 하시면 됩니다.
+
 
