@@ -51,7 +51,6 @@ $ sudo nano /etc/ansible/hosts
 1. Python 모듈 설치
 ```sh
 $ sudo apt-get install python python3 python-pip python3-pip
-$ sudo pip3 install 
 $ sudo pip3 install psycopg2 requests
 ```
 
