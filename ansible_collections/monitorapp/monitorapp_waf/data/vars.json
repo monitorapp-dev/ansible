@@ -1,0 +1,86 @@
+{
+	"db": {
+		"id": "",
+		"password": ""
+	},
+	"web": {
+		"id": "",
+		"password": ""
+	},
+	"detect": {
+		"from_time": "2010-01-01 00:00",
+		"to_time": "2020-12-28 15:00",
+		"limit": 100,
+		"offset": 0,
+		"domain_id": 0,
+		"client_ip": "",
+		"server_ip": "",
+		"policy_type": 0
+	},
+	"detect_detail": {
+		"id": 606
+	},
+	"opmode": {
+		"mode": "passive"
+	},
+	"blacklist_add": {
+		"enable": 1,
+		"name": "example",
+		"detect_target": {
+			"client_ip": ["10.0.0.1", "10.0.0.2"],
+			"server_ip": ["20.0.0.1:80", "20.0.0.2:443"]
+		},
+		"detect_behavior": {
+			"action": "block",
+			"black_page": 1,
+			"log": 0,
+			"mail": 1,
+			"severity": "medium"
+		},
+		"vlan_id": 10,
+		"explain": "this is explain"
+	},
+	"blacklist_enable": {
+		"id": 8,
+		"enable": 0
+	},
+	"blacklist_delete": {
+		"id": 24
+	},
+	"esm": {
+		"enable": "on",
+		"trans_cycle": 30,
+		"servers": [
+			{
+				"protocol": "UDP",
+				"ip": "10.0.10.130",
+				"port": 81
+			},
+			{
+				"protocol": "TCP",
+				"ip": "10.0.10.136",
+				"port": 82
+			}
+		],
+		"log_types": ["detect", "traffic"],
+		"delimiter": "|"
+	},
+	"whitelist_add": {
+		"enable": 1,
+		"name": "example",
+		"detect_target": {
+			"client_ip": ["10.0.0.1", "10.0.0.2"],
+			"server_ip": ["20.0.0.1:80", "20.0.0.2:443"]
+		},
+		"vlan_id": 10,
+		"explain": "this is explain"
+	},
+	"whitelist_delete": {
+		"id": 23
+	},
+	"whitelist_enable": {
+		"id": 23,
+		"enable": 1
+	}
+}
+

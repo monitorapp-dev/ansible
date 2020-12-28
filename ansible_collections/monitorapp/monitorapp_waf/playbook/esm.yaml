@@ -1,0 +1,15 @@
+- hosts: all
+  remote_user: root
+  gather_facts: yes
+  tasks:
+  - name: Request esm server setting
+    esm:
+      db_id: "{{ db.id }}"
+      db_password: "{{ db.password }}"
+      enable: "{{ esm.enable }}"
+      trans_cycle: "{{ esm.trans_cycle }}"
+      servers: "{{ esm.servers }}"
+      log_types: "{{ esm.log_types }}"
+      delimiter: "{{ esm.delimiter }}"
+    register: result
+  - debug: var=result

@@ -1,0 +1,18 @@
+- hosts: all
+  remote_user: root
+  gather_facts: yes
+  tasks:
+  - name: Get detect log
+    detect:
+      db_id: "{{ db.id }}"
+      db_password: "{{ db.password }}"
+      from_time: "{{ detect.from_time }}"
+      to_time: "{{ detect.to_time }}"
+      limit: "{{ detect.limit }}"
+      offset: "{{ detect.offset }}"
+      domain_id: "{{ detect.domain_id }}"
+      client_ip: "{{ detect.client_ip }}"
+      server_ip: "{{ detect.server_ip }}"
+      policy_type: "{{ detect.policy_type }}"
+    register: result
+  - debug: var=result

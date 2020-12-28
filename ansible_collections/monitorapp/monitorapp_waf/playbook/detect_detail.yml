@@ -1,0 +1,11 @@
+- hosts: all
+  remote_user: root
+  gather_facts: yes
+  tasks:
+  - name: Get detect log detail
+    detect_detail:
+      db_id: "{{ db.id }}"
+      db_password: "{{ db.password }}"
+      id: "{{ detect_detail.id }}"
+    register: result
+  - debug: var=result

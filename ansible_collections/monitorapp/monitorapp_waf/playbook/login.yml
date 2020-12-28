@@ -1,0 +1,10 @@
+- hosts: all
+  remote_user: root
+  gather_facts: yes
+  tasks:
+  - name: Request login
+    login:
+      id: "{{ web.id }}"
+      password: "{{ web.password }}"
+    register: result
+  - debug: var=result

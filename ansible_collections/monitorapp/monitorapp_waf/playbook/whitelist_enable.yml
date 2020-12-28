@@ -1,0 +1,12 @@
+- hosts: all
+  remote_user: root
+  gather_facts: yes
+  tasks:
+  - name: Enable IP Whitelist
+    whitelist_enable:
+      db_id: "{{ db.id }}"
+      db_password: "{{ db.password }}"
+      id: "{{ whitelist_enable.id }}"
+      enable: "{{ whitelist_enable.enable }}"
+    register: result
+  - debug: var=result

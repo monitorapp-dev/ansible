@@ -1,0 +1,16 @@
+- hosts: all
+  remote_user: root
+  gather_facts: yes
+  tasks:
+  - name: Add IP Blacklist
+    blacklist_add:
+      db_id: "{{ db.id }}"
+      db_password: "{{ db.password }}"
+      enable: "{{ blacklist_add.enable }}"
+      name: "{{ blacklist_add.name }}"
+      detect_target: "{{ blacklist_add.detect_target }}"
+      detect_behavior: "{{ blacklist_add.detect_behavior }}"
+      vlan_id: "{{ blacklist_add.vlan_id }}"
+      explain: "{{ blacklist_add.explain }}"
+    register: result
+  - debug: var=result

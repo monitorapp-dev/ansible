@@ -1,0 +1,11 @@
+- hosts: all
+  remote_user: root
+  gather_facts: yes
+  tasks:
+  - name: Delete IP Whitelist
+    whitelist_delete:
+      db_id: "{{ db.id }}"
+      db_password: "{{ db.password }}"
+      id: "{{ whitelist_delete.id }}"
+    register: result
+  - debug: var=result

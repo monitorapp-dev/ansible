@@ -1,0 +1,11 @@
+- hosts: all
+  remote_user: root
+  gather_facts: yes
+  tasks:
+  - name: Set operation mode
+    opmode_set:
+      db_id: "{{ db.id }}"
+      db_password: "{{ db.password }}"
+      mode: "{{ opmode.mode }}"
+    register: result
+  - debug: var=result

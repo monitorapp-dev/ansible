@@ -1,0 +1,10 @@
+- hosts: all
+  remote_user: root
+  gather_facts: yes
+  tasks:
+  - name: Request logout
+    logout:
+      db_id: "{{ db.id }}"
+      db_password: "{{ db.password }}"
+    register: result
+  - debug: var=result

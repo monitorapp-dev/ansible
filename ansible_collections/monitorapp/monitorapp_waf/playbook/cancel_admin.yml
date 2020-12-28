@@ -1,0 +1,10 @@
+- hosts: all
+  remote_user: root
+  gather_facts: yes
+  tasks:
+  - name: Cancel admin policy changes
+    cancel_admin:
+      db_id: "{{ db.id }}"
+      db_password: "{{ db.password }}"
+    register: result
+  - debug: var=result

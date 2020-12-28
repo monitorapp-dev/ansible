@@ -1,0 +1,15 @@
+- hosts: all
+  remote_user: root
+  gather_facts: yes
+  tasks:
+  - name: Add IP Whitelist
+    whitelist_add:
+      db_id: "{{ db.id }}"
+      db_password: "{{ db.password }}"
+      enable: "{{ whitelist_add.enable }}"
+      name: "{{ whitelist_add.name }}"
+      detect_target: "{{ whitelist_add.detect_target }}"
+      vlan_id: "{{ whitelist_add.vlan_id }}"
+      explain: "{{ whitelist_add.explain }}"
+    register: result
+  - debug: var=result
