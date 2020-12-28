@@ -51,6 +51,7 @@ $ sudo nano /etc/ansible/hosts
 1. Python 모듈 설치
 ```sh
 $ sudo apt-get install python python3 python-pip python3-pip
+$ sudo pip3 install 
 $ sudo pip3 install psycopg2 requests
 ```
 
@@ -87,4 +88,10 @@ $ sudo nano ansible_collections/monitorapp/monitorapp_waf/data/vars.json
 >
 > 각 모듈들에 대한 파라미터값은 모두 var.json에 설정 되어있습니다. 예시값으로 설정 되어 있으니 필요에 따라 수정하여 사용 하시면 됩니다.
 
-
+- example
+```sh
+$ sudo cd ansible_collections/monitorapp/monitorapp_waf
+$ sudo ansible-playbook playbook/login.yml --extra-vars '@./data/vars.json'
+$ sudo ansible-playbook playbook/whitelist.yml --extra-vars '@./data/vars.json'
+```
+> 모든 playbook 실행 전 login.yml 최초 1회 실행이 필요 합니다. (API login)
