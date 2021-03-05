@@ -1,0 +1,11 @@
+- hosts: all
+  remote_user: root
+  gather_facts: yes
+  tasks:
+  - name: Delete IP Whitelist
+    whitelist_del:
+      login_id: "{{ web.id }}"
+      login_pwd: "{{ web.password }}"
+      rule_id: "{{ whitelist_delete.id }}"
+    register: result
+  - debug: var=result

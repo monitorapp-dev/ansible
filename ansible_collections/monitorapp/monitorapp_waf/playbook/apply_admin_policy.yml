@@ -1,0 +1,10 @@
+- hosts: all
+  remote_user: root
+  gather_facts: yes
+  tasks:
+  - name: Apply admin policy
+    apply_admin_policy:
+      login_id: "{{ web.id }}"
+      login_pwd: "{{ web.password }}"
+    register: result
+  - debug: var=result
