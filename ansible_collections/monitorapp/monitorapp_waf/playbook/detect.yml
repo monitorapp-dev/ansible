@@ -4,8 +4,8 @@
   tasks:
   - name: Get detect log
     detect:
-      db_id: "{{ db.id }}"
-      db_password: "{{ db.password }}"
+      login_id: "{{ web.id }}"
+      login_pwd: "{{ web.password }}"
       from_time: "{{ detect.from_time }}"
       to_time: "{{ detect.to_time }}"
       limit: "{{ detect.limit }}"

@@ -4,8 +4,8 @@
   tasks:
   - name: Add IP Whitelist
     whitelist_add:
-      db_id: "{{ db.id }}"
-      db_password: "{{ db.password }}"
+      login_id: "{{ web.id }}"
+      login_pwd: "{{ web.password }}"
       enable: "{{ whitelist_add.enable }}"
       name: "{{ whitelist_add.name }}"
       detect_target: "{{ whitelist_add.detect_target }}"

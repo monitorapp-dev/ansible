@@ -4,8 +4,8 @@
   tasks:
   - name: Get detect log detail
     detect_detail:
-      db_id: "{{ db.id }}"
-      db_password: "{{ db.password }}"
-      id: "{{ detect_detail.id }}"
+      login_id: "{{ web.id }}"
+      login_pwd: "{{ web.password }}"
+      log_id: "{{ detect_detail.id }}"
     register: result
   - debug: var=result

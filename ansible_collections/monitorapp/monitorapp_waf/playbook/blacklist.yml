@@ -4,7 +4,7 @@
   tasks:
   - name: Get IP Blacklist
     blacklist:
-      db_id: "{{ db.id }}"
-      db_password: "{{ db.password }}"
+      login_id: "{{ web.id }}"
+      login_pwd: "{{ web.password }}"
     register: result
   - debug: var=result

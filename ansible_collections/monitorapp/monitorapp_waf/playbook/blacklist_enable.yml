@@ -4,9 +4,9 @@
   tasks:
   - name: Enable IP Blacklist
     blacklist_enable:
-      db_id: "{{ db.id }}"
-      db_password: "{{ db.password }}"
-      id: "{{ blacklist_enable.id }}"
+      login_id: "{{ web.id }}"
+      login_pwd: "{{ web.password }}"
+      rule_id: "{{ blacklist_enable.id }}"
       enable: "{{ blacklist_enable.enable }}"
     register: result
   - debug: var=result

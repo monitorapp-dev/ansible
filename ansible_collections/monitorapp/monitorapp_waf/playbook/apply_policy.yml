@@ -2,9 +2,9 @@
   remote_user: root
   gather_facts: yes
   tasks:
-  - name: Appliy policy changes
+  - name: Apply default settings policy
     apply_policy:
-      db_id: "{{ db.id }}"
-      db_password: "{{ db.password }}"
+      login_id: "{{ web.id }}"
+      login_pwd: "{{ web.password }}"
     register: result
   - debug: var=result
