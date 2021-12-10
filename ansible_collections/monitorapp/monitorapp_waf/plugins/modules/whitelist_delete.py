@@ -8,6 +8,54 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 __metaclass__ = type
 
+DOCUMENTATION = '''
+---
+module: whitelist_delete
+short_description: Delete IP whitelist rule.
+description:
+    - This module delete the AIWAF IP whitelist rule.
+    - Examples include all parameters and values need to be adjusted to datasources before usage.
+version_added: "0.1"
+author:
+    - "Sungjae jang (@sjjang)"
+    - "Gahui Yu (@ghyou)"
+options:
+    login_id:
+        description: AIWAF UI super administrator ID.
+        type: str
+        required: true
+    login_pwd:
+        description: AIWAF UI super administrator password.
+        type: str
+        required: true
+    rule_id:
+        description: Rule ID
+        type: int
+        required: true
+'''
+
+EXAMPLES = '''
+- hosts: all
+  remote_user: root
+  gather_facts: yes
+  tasks:
+  - name: Delete IP whitelist
+    whitelist_del:
+      login_id: "{{ web.id }}"
+      login_pwd: "{{ web.password }}"
+      rule_id: "{{ whitelist_delete.id }}"
+    register: result
+  - debug: var=result
+'''
+
+RETURN = '''
+msg:
+  description: Success message
+  returned: always
+  type: str
+  sample: 'Delete successful'
+'''
+
 
 def GetToken(sDBID, sDBPassword):
     pgCon = psycopg2.connect(dbname='aiwaf_db', user=sDBID, host='localhost', password=sDBPassword)

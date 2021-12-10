@@ -102,14 +102,15 @@ def main():
         headers = {"Content-Type": "application/json", "X-ACCESS-TOKEN": token}
         response = requests.post(url, data=json.dumps({}), headers=headers, verify=False)
 
-        if response.status_code is 204:
+        if response.status_code == 204:
             module.exit_json(msg="Get successful")
-        elif response.status_code is 400:
+        elif response.status_code == 400:
             module.fail_json(msg="Get failed", meta=response.json())
         else:
             module.fail_json(msg="Get failed")
 
         logout(token)
+
 
 if __name__ == '__main__':
     main()

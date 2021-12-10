@@ -102,9 +102,9 @@ def main():
         response = requests.post(url, data=json.dumps({}), headers=headers, verify=False)
         logout(token)
 
-        if response.status_code is 204:
+        if response.status_code == 204:
             module.exit_json(msg="Restored to the previous policies.")
-        elif response.status_code is 400:
+        elif response.status_code == 400:
             module.fail_json(msg="Restore failed", meta=response.json())
         else:
             module.fail_json(msg="Restore failed")

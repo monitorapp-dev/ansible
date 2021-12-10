@@ -217,7 +217,7 @@ def main():
     headers = {"Content-Type": "application/json", "X-ACCESS-TOKEN": token}
     response = requests.get(url, headers=headers, verify=False)
 
-    if response.status_code is 200:
+    if response.status_code == 200:
         module.exit_json(msg="Get successful")
     else:
         module.fail_json(msg="Get failed")

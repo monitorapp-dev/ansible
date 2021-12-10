@@ -103,7 +103,7 @@ def main():
     response = requests.get(url, headers=headers, verify=False)
 
     dic = json.loads(response.text)
-    if response.status_code is 200:
+    if response.status_code == 200:
         module.exit_json(msg="Get successful", meta=response.json())
     else:
         module.fail_json(msg="Get failed")

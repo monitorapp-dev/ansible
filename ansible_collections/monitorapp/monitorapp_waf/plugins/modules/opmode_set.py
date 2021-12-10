@@ -128,7 +128,7 @@ def main():
     logout(token)
 
     if result:
-        if res.status_code is 200:
+        if res.status_code == 200:
             module.exit_json(msg="Update successful", changed=result, meta=res.json())
         else:
             module.exit_json(msg="Update successful", changed=result)

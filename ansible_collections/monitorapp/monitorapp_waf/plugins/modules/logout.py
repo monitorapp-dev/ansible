@@ -8,6 +8,49 @@ import psycopg2
 from psycopg2.extras import RealDictCursor
 __metaclass__ = type
 
+DOCUMENTATION = '''
+---
+module: logout
+short_description: UI logout
+description:
+    - This module performs log out from UI of AIWAF.
+    - Examples include all parameters and values need to be adjusted to datasources before usage.
+version_added: "0.1"
+author:
+    - "Sungjae jang (@sjjang)"
+    - "Gahui Yu (@ghyou)"
+options:
+    login_id:
+        description: AIWAF UI super administrator ID.
+        type: str
+        required: true
+    login_pwd:
+        description: AIWAF UI super administrator password.
+        type: str
+        required: true
+'''
+
+EXAMPLES = '''
+- hosts: all
+  remote_user: root
+  gather_facts: yes
+  tasks:
+  - name: Request time sync
+    time:
+      login_id: "{{ web.id }}"
+      login_pwd: "{{ web.password }}"
+    register: result
+  - debug: var=result
+'''
+
+RETURN = '''
+msg:
+  description: Success message
+  returned: always
+  type: str
+  sample: 'Update successful'
+'''
+
 
 def GetToken(sDBID, sDBPassword):
     pgCon = psycopg2.connect(dbname='aiwaf_db', user=sDBID, host='localhost', password=sDBPassword)

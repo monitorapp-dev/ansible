@@ -121,9 +121,9 @@ def main():
 
     logout(token)
     dic = json.loads(response.text)
-    if response.status_code is 200:
+    if response.status_code == 200:
         module.exit_json(msg="Get successful", meta=response.json())
-    elif response.status_code is 400:
+    elif response.status_code == 400:
         module.exit_json(msg="Get failed", meta=response.json())
     else:
         module.fail_json(msg="Get failed")

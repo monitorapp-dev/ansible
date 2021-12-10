@@ -243,9 +243,9 @@ def main():
     headers = {"Content-Type": "application/json", "X-ACCESS-TOKEN": token}
     response = requests.get(url + '/?' + urllib.parse.urlencode(query), headers=headers, verify=False)
 
-    if response.status_code is 200:
+    if response.status_code == 200:
         module.exit_json(msg="Get successful", meta=response.json())
-    elif response.status_code is 400:
+    elif response.status_code == 400:
         module.fail_json(msg="Get failed", meta=response.json())
     else:
         module.fail_json(msg="Get failed")

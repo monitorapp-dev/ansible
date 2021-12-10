@@ -103,7 +103,7 @@ def main():
     headers = {"Content-Type": "application/json", "X-ACCESS-TOKEN": token}
     response = requests.post(url, data=json.dumps({}), headers=headers, verify=False)
 
-    if response.status_code is 204:
+    if response.status_code == 204:
         module.exit_json(msg="Update successful")
     else:
         module.fail_json(msg="Update failed", meta=response.json())
